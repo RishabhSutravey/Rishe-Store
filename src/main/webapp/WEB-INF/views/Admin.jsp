@@ -51,6 +51,7 @@ li a:hover {
 ${msg}
 ${msg1 }
 <h1>Welcome Admin</h1>
+<div align="right"><a href=<c:url value="perform_logout"/>>logout</a></div>
 <script>
 var app = angular.module("myapp", ["ngRoute"]);
 app.config(function($routeProvider) {

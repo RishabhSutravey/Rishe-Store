@@ -19,10 +19,11 @@ public class UserController {
 	@Autowired
 	UserDetails userDetails;
 
-	@RequestMapping("/login")
-	public ModelAndView login(@RequestParam(value = "id") String id,
+	/*@RequestMapping("/login")
+	public ModelAndView login(@RequestParam(value = "id") int id,
 			@RequestParam(value = "password") String password,HttpSession session) {
 		ModelAndView mv = new ModelAndView("Home");
+		@SuppressWarnings("unused")
 		String msg;
 		userDetails = userDetailsDAO.isValidUser(id, password);
 		if (userDetails == null) {
@@ -37,5 +38,5 @@ public class UserController {
 
 		return mv;
 
-	}
+	}*/
 }

@@ -17,23 +17,23 @@ margin :
 <body>
 <h1 align="center">Login</h1>
 <div align="center">
-<c:url var="action" value="login"></c:url>
-<form:form class="form-horizontol" action="${action}" commandName="login">
+
+<form class="form-horizontol" action="perform_login"  method="post">
 <table>
 <tr>
-<td><label for="email">Id:</label></td>
-<td><p><form:input type="text" path="id" placeholder="Enter Email" /></p></td>
+<td><label for="email">Name:</label></td>
+<td><p><input type="text"  name="username"placeholder="Enter Name" /></p></td>
 </tr>
 <tr>
 <td><label for="pwd">Password:</label></td>
-<td><p><form:input type="password" path="password" placeholder="Enter Password" /></p></td>
+<td><p><input type="password" name="password" placeholder="Enter Password" /></p></td>
 </tr>
 </table>
 <div align="center">
 <button type="submit" class="btn btn-primary">Login</button>
  </div> 
 New User? <a href=registration>Register Here</a>
-</form:form>
+</form>
 </div>
   <script src="bootstrap/js/bootstrap.min.js"></script>  
 </body>

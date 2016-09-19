@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -50,7 +51,7 @@ h1 {
 </head>
 <body>
 
-	<nav class="navbar navbar-inverse">
+	<nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<a href="#"><img alt="logo" src="D:\images\R1.jpg" width="50"
@@ -58,7 +59,8 @@ h1 {
 		</div>
 		<ul class="nav navbar-nav">
 			<li class="dropdown"><a class="dropdown-toggle"
-				data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-th" align="right"></span></a>
+				data-toggle="dropdown" href="#"><span
+					class="glyphicon glyphicon-th" align="right"></span></a>
 				<ul class="dropdown-menu">
 					<li><c:forEach items="${categoryList}" var="category">
 							<a href="#"><c:out value="${category.name}" /><span
@@ -68,16 +70,26 @@ h1 {
 				</ul></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
-			<li><a href="Admin">Admin</a>
+			<li><a href="Cart">
+          <span class="glyphicon glyphicon-shopping-cart"></span>
+        </a>
+        
+<sec:authorize access="isAuthenticated()">
+
+	<li><a href="<c:url value="/logout" />">Logout</a></li>
+	<li><a href="">Welcome<sec:authentication property="principal.username"/></a></li>
+</sec:authorize>
+<sec:authorize access="!isAuthenticated()">
 			<li><a href="registration"><span
 					class="glyphicon glyphicon-user"></span>Register Here</a></li>
 			<li><a href="login"><span class="glyphicon glyphicon-log-in"></span>
 					Login</a></li>
+					</sec:authorize>
 		</ul>
 	</div>
 	</nav>
 
-	<div class="container" align="center" style="font-size: 20;">
+	<div class="container" align="center" style="font-size: 20;margin-top:40px;">
 		<h1>
 			<img alt="logo" src="D:\images\R-edit.jpg" width="35" height="35"><b>RISH
 				e-Store </b>
@@ -118,17 +130,25 @@ h1 {
 			</a>
 		</div>
 	</div>
+	<table>
+		<c:forEach items="${productList}" var="product">
+			<tr>
+				<td><c:out value="${product.name}" /></td>
+		
+				<td><div class="thumbnail">
 
-	<c:forEach items="${productList}" var="product">
-		<c:out value="${product.name}" />
-		<div class="thumbnail">
-
-			<img height="100px" width="100px" alt="${product.id }"
-				src="<c:url value="/resources/images/${product.id }.jpg"></c:url>">
-		</div>
-
-	</c:forEach>
-
+						<a href="ShowProduct/${product.id}"> <img height="200px"
+							width="200px" alt="${product.id }"
+							src="<c:url value="/resources/images/${product.id }.jpg"></c:url>"></a>
+					</div></td>
+			
+			<td><c:url var="action" value="addtocart/${product.id}"></c:url>
+			<form:form action="${action}" modelAttribute="cart">
+			<input type="submit" class="btn btn-primary" value="Add To Cart" />
+			</form:form></td>
+			</tr>
+		</c:forEach>
+	</table>
 	<div ng-view></div>
 
 	<script>
@@ -159,6 +179,26 @@ h1 {
 		<c:when test="${UserClickedadmin}">
 			<c:import url="/WEB-INF/views/Admin.jsp"></c:import>
 		</c:when>
+	</c:choose>
+	<c:choose>
+		<c:when test="${UserClickedlogin}">
+			<c:import url="/WEB-INF/views/login.jsp"></c:import>
+		</c:when>
+	</c:choose>
+	<c:choose>
+		<c:when test="${UserClickeduser}">
+			<c:import url="/WEB-INF/views/registration.jsp"></c:import>
+		</c:when>
+	</c:choose>
+	<c:choose>
+		<c:when test="${Clickedshowproduct}">
+			<c:import url="/WEB-INF/views/ShowProduct.jsp"></c:import>
+		</c:when>
+	</c:choose>
+	<c:choose>
+	<c:when test="${UserClickedCart}">
+	<c:import url="/WEB-INF/views/Cart.jsp"></c:import>
+	</c:when>
 	</c:choose>
 </body>
 </html>

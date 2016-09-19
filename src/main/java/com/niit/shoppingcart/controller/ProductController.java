@@ -67,8 +67,7 @@ public class ProductController {
 @RequestMapping(value ={"addeditproduct/{id}"} )
 public String ProductPageedit(@PathVariable("id") int id,RedirectAttributes attributes) {
 	attributes.addFlashAttribute("product", this.productDAO.get(id));
-	return "redirect:/Product";
-}
+	return "redirect:/Product";}
 @RequestMapping(value ={"adddeleteproduct/{id}"} )
 public String ProductPagedelete(@ModelAttribute("product") Product product,Model m) {
 	//attributes.addFlashAttribute("product", this.productDAO.get(id));
