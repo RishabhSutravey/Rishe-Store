@@ -10,7 +10,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.niit.shoppingcart.dao.CartDAO;
 import com.niit.shoppingcart.dao.UserDetailsDAO;
 import com.niit.shoppingcart.model.UserDetails;
 
@@ -18,6 +20,8 @@ import com.niit.shoppingcart.model.UserDetails;
 public class AdminController {
 	@Autowired 
 	UserDetailsDAO userDetailsDAO;
+	@Autowired
+	CartDAO cartDAO;
 	@RequestMapping(value ="Admin" )
 	public ModelAndView SupplierPage() {
 		ModelAndView mv= new ModelAndView("/Admin");
@@ -29,7 +33,7 @@ public class AdminController {
 	public String login_session_attributes(HttpSession session) {
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		UserDetails user = userDetailsDAO.get(username);
-		session.setAttribute("userId", user.getId());
+		session.setAttribute("userid", user.getId());
 		session.setAttribute("name", user.getUsername());
 		session.setAttribute("LoggedIn", "true");
 
@@ -42,7 +46,8 @@ public class AdminController {
 		     if (authority.getAuthority().equals(role)) 
 		     {
 		    	 session.setAttribute("UserLoggedIn", "true");
-		    	 return "/Home";
+		    	 session.setAttribute("cartsize",cartDAO.getsize((int) session.getAttribute("userid")));
+		    	 return "redirect:/";
 		     }
 		     else 
 		     {
@@ -52,6 +57,11 @@ public class AdminController {
 	}
 		return "/Home";
 	
+	}
+	@RequestMapping(value="/loginError")
+	public String errorpage(RedirectAttributes attributes){
+		attributes.addFlashAttribute("error", "The Username or Password you entered is incorrect please try again");
+		return "redirect:/login";
 	}
 
 }

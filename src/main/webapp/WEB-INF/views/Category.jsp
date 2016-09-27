@@ -14,7 +14,7 @@
 <body>
 	<div class="text-center myForm">
 		<c:url var="action" value="editcategory"></c:url>
-		<form:form action="${action}" modelAttribute="category">
+		<form:form action="${action}" modelAttribute="category" >
 			<table>
 			<c:choose>
 			<c:when test="${category.id gt 0}">
@@ -25,11 +25,11 @@
 				</c:when></c:choose>
 				<tr>
 					<td>Name:</td>
-					<td><form:input class="input1" path="name" /></td>
+					<td><form:input class="input1" path="name" required="true"/></td>
 				</tr>
 				<tr>
 					<td>Description:</td>
-					<td><form:input class="input1" path="description" /></td>
+					<td><form:input class="input1" path="description" required="true"/></td>
 				</tr>
 				<tr>
 					<td></td>

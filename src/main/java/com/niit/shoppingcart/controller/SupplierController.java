@@ -2,6 +2,8 @@ package com.niit.shoppingcart.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +27,7 @@ public class SupplierController {
 
 	@Autowired
 	Supplier supplier;
+	
 	@RequestMapping(value = "/suppliergson")
 	@ResponseBody
 	public String SupplierGson() {
@@ -33,22 +36,28 @@ public class SupplierController {
 		String data = gson.toJson(list);
 		return data;
 	}
-	
+
 	
 	@RequestMapping(value="editsupplier")
-	public String editsupplier(@ModelAttribute("supplier") Supplier supplier,  Model m,RedirectAttributes attributes){
+	public String editsupplier(@Valid @ModelAttribute("supplier") Supplier supplier,  Model m,RedirectAttributes attributes,BindingResult result){
+		if(result.hasErrors()){
+			return "editsupplier";
+		}else{
 		supplierDAO.saveOrUpdate(supplier);
 		attributes.addFlashAttribute("successmessage","Details of Supplier saved successfully");
 		return "redirect:/Supplier";
 	}
+	}
 @RequestMapping(value ="Supplier" )
 	public ModelAndView SupplierPage(@ModelAttribute("supplier") Supplier supplier,BindingResult result
 			) {
-		ModelAndView mv= new ModelAndView("/Admin");
-		//mv.addObject("supplier", new Supplier());
-		mv.addObject("supplierList", supplierDAO.list());
-		mv.addObject("UserClickedsupplier", "true");
-		return mv;
+		
+			ModelAndView mv= new ModelAndView("/Admin");
+			//mv.addObject("supplier", new Supplier());
+			mv.addObject("supplierList", supplierDAO.list());
+			mv.addObject("UserClickedsupplier", "true");
+			return mv;
+		
 	}
 @RequestMapping(value ={"addeditsupplier/{id}"} )
 public String SupplierPageedit(@PathVariable("id") int id,RedirectAttributes attributes) {

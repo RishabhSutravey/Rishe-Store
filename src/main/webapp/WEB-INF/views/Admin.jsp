@@ -7,51 +7,52 @@ uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
- <!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <title>Admin</title>
 <style>
-ul {
-    list-style-type: none;
-    margin-top: 10px;
-    padding-left: 500px;
-    overflow: hidden;
-    width:100%;
-    background-color: #333;
-}
-
-li {
-    float: left;
-}
-
-li a {
-    display: inline-block;
-    color: white;
+ .navbar-nav {
+    width: 100%;
     text-align: center;
-    padding: 4px 30px;
-    text-decoration: none;
-}
-
-li a:hover {
-    background-color: grey;
-}
-
-
+    > li {
+      float: none;
+      display: inline-block;
+    }
+  }
 </style>
 </head>
 <body>
-  <div>
-    <ul>
-      <li><a href="Supplier">Supplier</a></li>
-      <li><a href="Product">Product</a></li>
-      <li><a href="Category">Category</a></li>
-    </ul>
-  </div>
+<nav class="navbar navbar-default" role="navigation">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#"><img alt="logo" src="D:\images\R1.jpg" width="30"
+				height="30"></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="pull-left"><a href="#">RISH e-Store</a></li>
+         <li class="active"><a href="Supplier">Supplier</a></li>
+      <li class="active"><a href="Product">Product</a></li>
+      <li class="active"><a href="Category">Category</a></li>
+        <li class="social pull-right"><a href=<c:url value="perform_logout"/>>logout</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
 ${msg}
 ${msg1 }
 <h1>Welcome Admin</h1>
-<div align="right"><a href=<c:url value="perform_logout"/>>logout</a></div>
+
 <script>
 var app = angular.module("myapp", ["ngRoute"]);
 app.config(function($routeProvider) {

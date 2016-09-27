@@ -6,20 +6,24 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<link rel="stylesheet" href="<c:url value="/resources/table1.css" />">
 <title>Registration</title>
 </head>
 <body>
-<c:url var="action" value="adduser"></c:url>
+<h1 align="center" style="margin-top:60px;">Register Here</h1>
+<div class="text-center myForm" style="margin-top:50px;width:200px;">
+ <c:url var="action" value="adduser"></c:url>
 <form:form action="${action }" modelAttribute="userDetails">
 <table>
-<tr><td>Name:</td><td><form:input path="username" /></td></tr>
-<tr><td>Password:</td><td><form:input path="password" type="password"/></td></tr>
-<tr><td>E-mail:</td><td><form:input path="mail" /></td></tr>
-<tr><td>Mobile:</td><td><form:input path="contact" /></td></tr>
-<tr><td>Address:</td><td><form:input path="address" /></td></tr>
-<tr><td></td><td><input type="submit" value="Register"/></td></tr>
+<tr><td>Name:</td><td><form:input class="input1" path="username" /></td></tr>
+<tr><td>Password:</td><td><form:input class="input1" path="password" type="password"/></td></tr>
+<tr><td>E-mail:</td><td><form:input class="input1" path="mail" /></td></tr>
+<tr><td>Mobile:</td><td><form:input class="input1" path="contact" /></td></tr>
+<tr><td>Address:</td><td><form:input class="input1" path="address" /></td></tr>
+<tr><td></td><td><input type="submit" class="btn btn-primary" value="Register"/></td></tr>
 </table>
 </form:form>
+</div>
 ${registered}
 </body>
 </html>

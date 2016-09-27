@@ -9,13 +9,15 @@
 <meta charset="ISO-8859-1">
 <title>Home Page</title>
 <link rel="stylesheet"
-	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> 
+	<link rel="stylesheet" href="<c:url value="/resources/imagegallery.css"/>">
+	<link rel="stylesheet" href="<c:url value="/resources/login.css"/>">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script
+ <script
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script
-	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<!-- <script 
+	src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> -->
 <script
 	src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -26,13 +28,14 @@ h1 {
 	background-color: #c3c3c3;
 	text-align: center;
 	padding-top: 20px;
+	padding-bottom:20px;
 }
 </style>
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 .carousel-inner>.item>img, .carousel-inner>.item>a>img {
-	width: 70%;
+	width: 80%;
 	margin: auto;
 }
 </style>
@@ -51,10 +54,10 @@ h1 {
 </head>
 <body>
 
-	<nav class="navbar navbar-inverse navbar-fixed-top">
+	<nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a href="#"><img alt="logo" src="D:\images\R1.jpg" width="50"
+			<a href="Home"><img alt="logo" src="D:\images\R1.jpg" width="50"
 				height="50"></a>
 		</div>
 		<ul class="nav navbar-nav">
@@ -62,108 +65,57 @@ h1 {
 				data-toggle="dropdown" href="#"><span
 					class="glyphicon glyphicon-th" align="right"></span></a>
 				<ul class="dropdown-menu">
-					<li><c:forEach items="${categoryList}" var="category">
-							<a href="#"><c:out value="${category.name}" /><span
+				
+					<li>
+						<c:forEach items="${categoryList}" var="category">
+				<a href="navproduct/${category.id }"><c:out value="${category.name}" /><span
 								class="glyphicon glyphicon-menu-right"></span></a>
 							<br>
-						</c:forEach></li>
+						
+					</c:forEach>
+				</li>
 				</ul></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="Cart">
-          <span class="glyphicon glyphicon-shopping-cart"></span>
+          <span class="glyphicon glyphicon-shopping-cart"></span>Cart
         </a>
         
 <sec:authorize access="isAuthenticated()">
-
-	<li><a href="<c:url value="/logout" />">Logout</a></li>
-	<li><a href="">Welcome<sec:authentication property="principal.username"/></a></li>
+	<li><a href="<c:url value="/perform_logout" />">Logout</a></li>
+	<li><a href="">Welcome  <sec:authentication property="principal.username"/></a></li>
 </sec:authorize>
 <sec:authorize access="!isAuthenticated()">
-			<li><a href="registration"><span
-					class="glyphicon glyphicon-user"></span>Register Here</a></li>
-			<li><a href="login"><span class="glyphicon glyphicon-log-in"></span>
+<li><a href="registration">Sign Up</a>
+			<li><a href="#" data-toggle="modal" data-target="#login-modal">
 					Login</a></li>
+				
 					</sec:authorize>
 		</ul>
 	</div>
 	</nav>
 
-	<div class="container" align="center" style="font-size: 20;margin-top:40px;">
-		<h1>
-			<img alt="logo" src="D:\images\R-edit.jpg" width="35" height="35"><b>RISH
-				e-Store </b>
-		</h1>
-
-	</div>
-
-	<div class="container">
-		<br>
-		<div id="myCarousel" class="carousel slide" data-ride="carousel">
-			<ol class="carousel-indicators">
-				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-				<li data-target="#myCarousel" data-slide-to="1"></li>
-				<li data-target="#myCarousel" data-slide-to="2"></li>
-			</ol>
-			<div class="carousel-inner" role="listbox">
-				<div class="item active">
-					<img src="D:\images\cam2.jpg" alt="Chania" width="320" height="240">
-				</div>
-
-				<div class="item">
-					<img src="D:\images\mobile.jpg" alt="Chania" width="320"
-						height="240">
-				</div>
-
-				<div class="item">
-					<img src="D:\images\pc.jpg" alt="Flower" width="320" height="240">
-				</div>
-			</div>
-			<a class="left carousel-control" href="#myCarousel" role="button"
-				data-slide="prev"> <span
-				class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-				<span class="sr-only">Previous</span>
-			</a> <a class="right carousel-control" href="#myCarousel" role="button"
-				data-slide="next"> <span
-				class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-				<span class="sr-only">Next</span>
-			</a>
-		</div>
-	</div>
-	<table>
-		<c:forEach items="${productList}" var="product">
-			<tr>
-				<td><c:out value="${product.name}" /></td>
-		
-				<td><div class="thumbnail">
-
-						<a href="ShowProduct/${product.id}"> <img height="200px"
-							width="200px" alt="${product.id }"
-							src="<c:url value="/resources/images/${product.id }.jpg"></c:url>"></a>
-					</div></td>
-			
-			<td><c:url var="action" value="addtocart/${product.id}"></c:url>
-			<form:form action="${action}" modelAttribute="cart">
-			<input type="submit" class="btn btn-primary" value="Add To Cart" />
-			</form:form></td>
-			</tr>
-		</c:forEach>
-	</table>
+	
 	<div ng-view></div>
-
-	<script>
-		var app = angular.module("myapp", [ "ngRoute" ]);
-		app.config(function($routeProvider) {
-			$routeProvider.when("/", {
-				templateUrl : "Home"
-			}).when("/login", {
-				templateUrl : "login"
-			}).when("/registration", {
-				templateUrl : "registration"
-			});
-		});
-	</script>
-	<script>
+<script>
+var app = angular.module("myapp", ["ngRoute"]);
+app.config(function($routeProvider) {
+    $routeProvider
+    .when("/Home", {
+        templateUrl :"Welcome"
+    })
+    .when("/registration",{
+    	templateUrl : "registration"
+    })
+     .when("/Cart",{
+    	templateUrl : "Cart"
+    })
+    .when("/Product", {
+        templateUrl : "Product"
+    });
+});
+</script>  
+	<!-- <script>
 		$(document).ready(function() {
 			$('.dropdown a.test').on("click", function(e) {
 				$(this).next('ul').toggle();
@@ -171,11 +123,11 @@ h1 {
 				e.preventDefault();
 			});
 		});
-	</script>
+	</script> -->
 	<%-- <c:if test="${UserClickedLogin}">
 <jsp:include page="login.jsp"></jsp:include>
 </c:if> --%>
-	<c:choose>
+	<%-- <c:choose>
 		<c:when test="${UserClickedadmin}">
 			<c:import url="/WEB-INF/views/Admin.jsp"></c:import>
 		</c:when>
@@ -184,7 +136,12 @@ h1 {
 		<c:when test="${UserClickedlogin}">
 			<c:import url="/WEB-INF/views/login.jsp"></c:import>
 		</c:when>
-	</c:choose>
+	</c:choose> --%>
+	<c:choose>
+		<c:when test="${UserClickedwelcome}">
+			<c:import url="/WEB-INF/views/Welcome.jsp"></c:import>
+		</c:when>
+		</c:choose>
 	<c:choose>
 		<c:when test="${UserClickeduser}">
 			<c:import url="/WEB-INF/views/registration.jsp"></c:import>
@@ -196,9 +153,30 @@ h1 {
 		</c:when>
 	</c:choose>
 	<c:choose>
+	<c:when test="${Clickedcatproduct}">
+			<c:import url="/WEB-INF/views/catproducts.jsp"></c:import>
+		</c:when>
+	</c:choose>
+	<c:choose>
 	<c:when test="${UserClickedCart}">
 	<c:import url="/WEB-INF/views/Cart.jsp"></c:import>
 	</c:when>
-	</c:choose>
+	</c:choose> 
+	<div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    	  <div class="modal-dialog">
+				<div class="loginmodal-container">
+					<h2>Login to Your Account</h2><br>
+				  <form action="perform_login"  method="post">
+					<input type="text" name="username" placeholder="Username">
+					<input type="password" name="password" placeholder="Password">
+					<input type="submit" name="login" class="login loginmodal-submit" value="Login">
+				  </form>
+					
+				  <div class="login-help">
+					<a href="registration">Register</a> - <a href="#">Forgot Password</a>
+				  </div>
+				</div>
+			</div>
+		  </div>
 </body>
 </html>

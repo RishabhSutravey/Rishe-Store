@@ -19,12 +19,13 @@ public class HomeController {
 	@Autowired 
 	CategoryDAO categoryDAO;
 @RequestMapping("/")
-public String homepage(Model m){
-	
-	m.addAttribute("product",new Product());
-	m.addAttribute("categoryList", categoryDAO.list());
-	m.addAttribute("productList",productDAO.list());
-	return "Home";
+public ModelAndView homepage(Model m){
+	ModelAndView mv=new ModelAndView("/Home");
+	mv.addObject("UserClickedwelcome", "true");
+	mv.addObject("product",new Product());
+	mv.addObject("categoryList", categoryDAO.list());
+	mv.addObject("productList",productDAO.list());
+	return mv;
 }
 @RequestMapping(value ="ShowProduct/{id}" )
 public String ShowProduct(@PathVariable("id") int id,RedirectAttributes attributes,Model m) {
@@ -32,10 +33,18 @@ m.addAttribute("Clickedshowproduct", "true");
 	m.addAttribute("IndividualProduct", productDAO.getproduct(id));
 	return "ShowProduct";
 }
+
 @RequestMapping(value="/login")
 public ModelAndView loginpage(){
 	ModelAndView mv= new ModelAndView("/login");
 	mv.addObject("UserClickedlogin", "true");
 	return mv;
+}
+@RequestMapping(value="navproduct/{id}")
+public String navproduct(Model m,@PathVariable("id") int id ){
+
+	m.addAttribute("Clickedcatproduct", "true");
+	m.addAttribute("navproducts", productDAO.navproduct(id));
+	return "catproducts";
 }
 }

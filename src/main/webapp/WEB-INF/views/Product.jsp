@@ -27,15 +27,15 @@
 				</c:choose>
 				<tr>
 					<td>Name:</td>
-					<td><form:input class="input1" path="name" /></td>
+					<td><form:input class="input1" path="name" required="true"/></td>
 				</tr>
 				<tr>
 					<td>Description:</td>
-					<td><form:input class="input1" path="description" /></td>
+					<td><form:input class="input1" path="description" required="true"/></td>
 				</tr>
 				<tr>
 					<td>Price:</td>
-					<td><form:input class="input1" path="price" /></td>
+					<td><form:input class="input1" type="number" path="price" required="true" min="1" /></td>
 				</tr>
 				<tr>
 				<td>Category:</td>

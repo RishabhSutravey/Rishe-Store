@@ -33,7 +33,7 @@ public class RegController {
 	}
 	@RequestMapping(value="registration")
 	public ModelAndView user(@ModelAttribute("userDetails") UserDetails userDetails){
-		ModelAndView mv=new ModelAndView("/registration");
+		ModelAndView mv=new ModelAndView("/Home");
 		mv.addObject("UserClickeduser","true");
 		return mv;
 	}

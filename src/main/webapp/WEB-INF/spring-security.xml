@@ -18,6 +18,7 @@ http://www.springframework.org/schema/security
 http://www.springframework.org/schema/security/spring-security.xsd">
 
 <security:http auto-config="true" use-expressions="true">
+<security:intercept-url pattern="/Admin/** "  access="hasRole('ROLE_ADMIN')" />
     
 <security:intercept-url pattern="/Product/** "  access="hasRole('ROLE_ADMIN')" />
 
@@ -56,8 +57,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
         
         <security:logout logout-url="/perform_logout"
         invalidate-session="true" logout-success-url="/" />
-         <security:logout logout-url="/logout"
-        invalidate-session="true" logout-success-url="/" />
+        
         
     <security:csrf disabled="true" />
   

@@ -1,5 +1,7 @@
 package com.niit.shoppingcart.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,10 +24,10 @@ public class CategoryController {
 	Category category;
 
 	@RequestMapping(value="editcategory")
-	public String editcategory(@ModelAttribute("category") Category category,Model m){
-		categoryDAO.saveOrUpdate(category);
-		return "redirect:/Category";
-	}
+	public String editcategory(@ModelAttribute("category") @Valid Category category,Model m){
+	
+	return "redirect:/Category";
+		}
 @RequestMapping(value ="Category" )
 	public ModelAndView CategoryPage(@ModelAttribute("category") Category category,BindingResult result) {
 		ModelAndView mv= new ModelAndView("/Admin");
